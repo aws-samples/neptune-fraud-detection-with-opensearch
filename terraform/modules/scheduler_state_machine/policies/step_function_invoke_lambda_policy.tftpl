@@ -1,0 +1,14 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "lambda:InvokeFunction",
+            "Resource": [
+                "${check_for_lambda_duplicate_execution_arn}",
+                "${restart_state_machine_execution_arn}",
+                "${stream_poller_lambda_arn}"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}

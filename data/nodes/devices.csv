@@ -1,0 +1,7 @@
+~id,deviceType:String,deviceInfo:String
+d1,"mobile","iOS Device"
+d2,"mobile","SAMSUNG SM-G892A Build/NRD90M"
+d3,"desktop","Windows"
+d4,"desktop","MacOS"
+d5,"mobile","BLADE A602 Build/MRA58K"
+d6,"mobile","Lenovo PB1-750M Build/S100"

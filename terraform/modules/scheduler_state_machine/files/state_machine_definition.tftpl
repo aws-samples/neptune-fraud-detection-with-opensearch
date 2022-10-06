@@ -1,0 +1,74 @@
+{  
+    "Comment": "Invoke Lambda to poll neptune Stream endpoint",  
+    "StartAt": "CheckIfAlreadyRunning",  
+    "States": {  
+         "CheckIfAlreadyRunning": {  
+            "Type": "Task",  
+            "Resource": "${check_for_lambda_duplicate_execution_arn}",  
+            "ResultPath": "$.iterator",  
+            "Next": "DecideWhetherToStopOrContinue"  
+        },  
+         "DecideWhetherToStopOrContinue": {  
+            "Type": "Choice",  
+            "Choices": [  
+                {  
+                    "Variable": "$.iterator.alreadyRunning",  
+                    "BooleanEquals": true,  
+                    "Next": "Done"  
+                }  
+            ],  
+            "Default": "ConfigureIterator"  
+        },  
+        "ConfigureIterator": {  
+            "Type": "Pass",  
+            "Result": {  
+                "index": 0,  
+                "wait_time": 1,  
+                "count": 1000  
+            },  
+            "ResultPath": "$.iterator",  
+            "Next": "InvokeStreamPoller"  
+        },  
+        "InvokeStreamPoller": {  
+            "Type": "Task",  
+            "Resource": "${stream_poller_lambda_arn}",  
+            "ResultPath": "$.iterator",
+            "TimeoutSeconds":  600,
+            "Retry" : [
+                     {
+                          "ErrorEquals": [ "States.Timeout" ],
+                          "IntervalSeconds": 3,
+                          "MaxAttempts": 4,
+                          "BackoffRate": 1.5
+                     }
+                 ] ,
+            "Next": "IsCountReached"  
+        },  
+        "IsCountReached": {  
+            "Type": "Choice",  
+            "Choices": [  
+                {  
+                    "Variable": "$.iterator.continue",  
+                    "BooleanEquals": true,  
+                    "Next": "Pause"  
+                }  
+            ],  
+            "Default": "RestartStateMachine"  
+        },  
+        "Pause": {  
+            "Type": "Wait",  
+            "SecondsPath": "$.iterator.wait_time",  
+            "Next": "InvokeStreamPoller"  
+        },
+        "RestartStateMachine": {  
+            "Type": "Task",  
+            "Resource": "${restart_state_machine_execution_arn}",  
+            "ResultPath": "$.iterator",  
+            "Next": "Done"  
+        },   
+        "Done": {  
+            "Type": "Pass",  
+            "End": true  
+        }  
+    }  
+}
