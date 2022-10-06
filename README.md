@@ -8,13 +8,13 @@ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 License for the specific language governing permissions and limitations under the License.
 --->
 
-# tf-neptune
+# neptune-fraud-detection-with-opensearch
 
 Terraform module to create a Neptune database cluster.
 
 ## Architecture
 
-![architecture](files/architecture_diagram.png)
+![Architecture Diagram](files/architecture_diagram.png)
 
 ## Deploying the solution
 
@@ -29,7 +29,7 @@ git clone https://github.com/aws-samples/neptune-fraud-detection-with-opensearch
 2. Change directory into the terraform directory:
 
 ```bash
-cd $HOME/NeptuneOpenSearchDemo/neptune-fraud-detection-with-opensearch/
+cd $HOME/NeptuneOpenSearchDemo/neptune-fraud-detection-with-opensearch/terraform
 ```
 
 3. Make sure the Docker daemon is running:
@@ -67,7 +67,7 @@ The output should look like `neptunestream-loader-us-east-1-123456789012`. Confi
 2. Upload node data to the S3 bucket obtained in the previous step:
 
 ```bash
-aws s3 cp $HOME/NeptuneOpenSearchDemo/tf-neptune/data s3://neptunestream-loader-us-east-1-123456789012 --recursive
+aws s3 cp $HOME/NeptuneOpenSearchDemo/neptune-fraud-detection-with-opensearch/data s3://neptunestream-loader-us-east-1-123456789012 --recursive
 ```
 
 3. Confirm the lambda function that sends a request to OpenSearch was deployed correctly:
