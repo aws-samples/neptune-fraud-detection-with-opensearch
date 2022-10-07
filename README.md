@@ -14,7 +14,7 @@ Terraform module to create a Neptune database cluster.
 
 ## Architecture
 
-![Architecture Diagram](files/architecture_diagram.png)
+![Architecture Diagram](documents/architecture_diagram.png)
 
 ## Deploying the solution
 
