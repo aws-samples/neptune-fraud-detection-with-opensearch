@@ -49,7 +49,13 @@ docker info
 
 If the previous command outputs an error that is unable to connect to the Docker daemon, start Docker and run the command again.
 
-4. Preview the changes you are about to deploy:
+4. Initialize the Terraform folder to install required providers:
+
+```bash
+terraform init
+```
+
+5. Preview the changes you are about to deploy:
 
 ```bash
 terraform plan
@@ -57,7 +63,7 @@ terraform plan
 
 The solution is deployed on `us-west-2` by default. The user can change this behavior by modifying the variable `region` in `variables.tf` file.
 
-5. Deploy the AWS services:
+6. Deploy the AWS services:
 
 ```bash
 terraform apply -auto-approve
@@ -65,12 +71,12 @@ terraform apply -auto-approve
 
 > Note: Deployment will take around 30 minutes due to the time necessary to provision the Neptune and OpenSearch clusters.
 
-6. To retrieve the name of the S3 bucket to upload data to:
+7. To retrieve the name of the S3 bucket to upload data to:
 ```bash
 aws s3 ls | grep neptunestream-loader
 ```
 
-7. Upload node data to the S3 bucket obtained in the previous step:
+8. Upload node data to the S3 bucket obtained in the previous step:
 ```bash
 aws s3 cp $HOME/NeptuneOpenSearchDemo/neptune-fraud-detection-with-opensearch /data s3://neptunestream-loader-us-west-2-123456789012 –recursive
 ```
