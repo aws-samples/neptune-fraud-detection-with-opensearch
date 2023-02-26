@@ -78,7 +78,7 @@ variable "backup_retention_period" {
 }
 
 variable "engine_version" {
-  default     = "1.0.5.1"
+  default     = "1.2.0.2"
   description = "Version number of the database engine."
 }
 

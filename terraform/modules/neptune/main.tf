@@ -146,6 +146,7 @@ resource "aws_neptune_cluster_instance" "writer" {
   cluster_identifier = aws_neptune_cluster.cluster.id
   identifier         = var.writer_identifier
   instance_class     = var.writer_instance_class
+  neptune_parameter_group_name = "default.neptune1.2"
   apply_immediately  = true
 
   tags = {
@@ -160,6 +161,7 @@ resource "aws_neptune_cluster_instance" "readers" {
   identifier_prefix  = var.reader_identifier_prefix
   cluster_identifier = aws_neptune_cluster.cluster.id
   instance_class     = var.reader_instance_class
+  neptune_parameter_group_name = "default.neptune1.2"
   apply_immediately  = true
 
   tags = {
@@ -174,7 +176,7 @@ resource "aws_neptune_cluster_instance" "readers" {
 }
 
 resource "aws_neptune_cluster_parameter_group" "streams" {
-  family      = "neptune1"
+  family      = "neptune1.2"
   name        = "stream-parameter-group"
   description = "neptune cluster parameter group"
 
