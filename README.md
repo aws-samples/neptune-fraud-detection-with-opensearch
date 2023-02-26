@@ -73,12 +73,12 @@ terraform apply -auto-approve
 
 7. To retrieve the name of the S3 bucket to upload data to:
 ```bash
-aws s3 ls | grep neptunestream-loader
+aws s3 ls | grep "neptunestream-loader.*\d$"
 ```
 
 8. Upload node data to the S3 bucket obtained in the previous step:
 ```bash
-aws s3 cp $HOME/NeptuneOpenSearchDemo/neptune-fraud-detection-with-opensearch /data s3://neptunestream-loader-us-west-2-123456789012 –recursive
+aws s3 cp $HOME/NeptuneOpenSearchDemo/neptune-fraud-detection-with-opensearch/data s3://neptunestream-loader-us-west-2-123456789012 --recursive
 ```
 > Note: This is a sample dataset for demonstration purposes only created from the [IEEE-CIS Fraud Detection dataset](https://www.kaggle.com/c/ieee-fraud-detection/data).
 
@@ -89,13 +89,13 @@ After the solution is deployed and the dataset is uploaded to S3, the dataset ca
 1. Confirm the Lambda function that sends a request to OpenSearch was deployed correctly:
 
 ```bash
-aws lambda get-function –function-name NeptuneStreamOpenSearchRequestLambda
+aws lambda get-function --function-name NeptuneStreamOpenSearchRequestLambda --query 'Configuration.[FunctionName, State]'
 ```
 
 2. Invoke the Lambda function to see all records present in OpenSearch that are added from Neptune:
 
 ```bash
-aws lambda invoke –function-name NeptuneStreamOpenSearchRequestLambda response.json
+aws lambda invoke --function-name NeptuneStreamOpenSearchRequestLambda response.json
 ```
 
 The results of the Lambda invocation are stored in the `response.json` file. This file contains the total number of records in the cluster and all records ingested up to that point. The solution stores records in the index `amazon_neptune`. An example of a node with device information looks like this:
@@ -128,6 +128,7 @@ The results of the Lambda invocation are stored in the `response.json` file. Thi
 
 ```
 
+>Note: If you don't see any records in the response, wait a a few seconds and try again as the data replication might still be in progress.
 
 ## Cleaning up
 
