@@ -136,7 +136,7 @@ module "opensearch_request_lambda" {
   source              = "./modules/opensearch_request_lambda"
   opensearch_endpoint = module.aws_opensearch.opensearch_endpoint
   opensearch_sg_id    = module.aws_opensearch.opensearch_sg_id
-  iam_role_arn        = "arn:aws:iam::${data.aws_caller_identity.current.id}:role/${var.neptune_poller_lambda_role_name}"
+  iam_role_arn        = module.lambda.neptune_stream_poller_execution_role_arn
   subnet_ids          = var.create_sample_vpc ? module.sample_vpc[0].private_subnets : var.subnet_ids
   kms_key_arn         = module.commons.kms_key_arn
   redrive_queue_arn   = module.commons.redrive_queue_arn
