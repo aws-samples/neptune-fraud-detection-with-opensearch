@@ -1,4 +1,4 @@
-# Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights served.
+# Copyright 2023 Amazon.com, Inc. or its affiliates. All Rights served.
 # SPDX-License-Identifier: MIT-0
 #  
 # Permission is hereby granted, free of charge, to any person taining a copy of this
@@ -45,7 +45,7 @@ variable "backup_retention_period" {
 }
 
 variable "engine_version" {
-  default     = "1.0.5.1"
+  default     = "1.2.0.2"
   description = "Version number of the database engine."
 }
 

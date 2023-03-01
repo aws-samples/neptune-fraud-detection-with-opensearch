@@ -1,5 +1,5 @@
 """
-Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights served.
+Copyright 2023 Amazon.com, Inc. or its affiliates. All Rights served.
 SPDX-License-Identifier: MIT-0
  
 Permission is hereby granted, free of charge, to any person taining a copy of this

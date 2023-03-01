@@ -1,4 +1,4 @@
-# Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights served.
+# Copyright 2023 Amazon.com, Inc. or its affiliates. All Rights served.
 # SPDX-License-Identifier: MIT-0
 #  
 # Permission is hereby granted, free of charge, to any person taining a copy of this
@@ -136,7 +136,7 @@ module "opensearch_request_lambda" {
   source              = "./modules/opensearch_request_lambda"
   opensearch_endpoint = module.aws_opensearch.opensearch_endpoint
   opensearch_sg_id    = module.aws_opensearch.opensearch_sg_id
-  iam_role_arn        = "arn:aws:iam::${data.aws_caller_identity.current.id}:role/${var.neptune_poller_lambda_role_name}"
+  iam_role_arn        = module.lambda.neptune_stream_poller_execution_role_arn
   subnet_ids          = var.create_sample_vpc ? module.sample_vpc[0].private_subnets : var.subnet_ids
   kms_key_arn         = module.commons.kms_key_arn
   redrive_queue_arn   = module.commons.redrive_queue_arn
